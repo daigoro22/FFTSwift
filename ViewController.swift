@@ -41,26 +41,11 @@ class ViewController: NSViewController {
         }
         
         var fft=FFT(data: data,smpf: Int(smpf))
-        let datas=fft.getFFTData()()
-        println((smpf/Double(data.count))*Double(maxKey(datas)))
+        let datas=fft.getFFTData()
+        println((smpf/Double(data.count))*Double(fft.maxKey))
         
     }
     @IBOutlet weak var button: NSButton!
     @IBOutlet weak var textfield: NSTextField!
-    
-    private func maxKey(data:[Int16:Double])->Int16
-    {
-        var maxValue:Double=0
-        var maxKey:Int16=0
-        for (key,value) in data
-        {
-            if(maxValue<value&&key<Int16(data.count/2)){
-                maxValue=value
-                maxKey=key
-            }
-         println(maxKey)
-        }
-        return maxKey
-    }
 }
 

@@ -80,8 +80,24 @@ func **(lhs:Double,rhs:Int)->Double
 class FFT
 {
     var data:[Complex]=[]
+    var FFTData:[Int16:Double]=[:]
     var smpf:Int
     var length:Int
+    var maxKey:Int16{
+        get{
+            var maxValue:Double=0
+            var maxKey:Int16=0
+            for (key,value) in FFTData
+            {
+                if(maxValue<value&&key<Int16(FFTData.count/2)){
+                    maxValue=value
+                    maxKey=key
+                }
+                println(maxKey)
+            }
+            return maxKey
+        }
+    }
     
     init(data:[Double],smpf:Int)
     {
@@ -93,7 +109,7 @@ class FFT
         }
     }
     
-    internal func getFFTData()->()->[Int16:Double]
+    internal func getFFTData()->[Int16:Double]
     {
         var FFTData:[Int16:Double]=[:]
         var count:Int16=0
@@ -126,12 +142,10 @@ class FFT
             btf(length:minusData.count.i16,data:minusData)
             return 0
         }
+        btf(length:self.data.count.i16,data:self.data)
+        self.FFTData=FFTData
         
-        return {
-            ()->[Int16:Double] in
-            btf(length:self.data.count.i16,data:self.data)
-            return FFTData
-        }
+        return FFTData
     }
 }
 
